@@ -18,6 +18,7 @@ from datetime import datetime
 from dataclasses import dataclass, field
 from typing import Optional
 import PIL
+import Levenshtein
 
 from datasets import load_dataset, load_from_disk
 from transformers import Qwen2VLForConditionalGeneration
@@ -75,31 +76,57 @@ class GRPOScriptArguments(ScriptArguments):
     )
 
 # ============================ 自定义获取坐标/坐标框/动作类型 ===================================
-def extract_coord(content):
-    # Try to find the bbox within <answer> tags, if can not find, return [0, 0, 0, 0]
+def extract_content(content):
     answer_tag_pattern = r'<answer>(.*?)</answer>'
-    bbox_pattern = r'\{.*\[(\d+),\s*(\d+)]\s*.*\}'
+    content_pattern = r"'content': '(.*)'"
     content_answer_match = re.search(answer_tag_pattern, content, re.DOTALL)
     if content_answer_match:
         content_answer = content_answer_match.group(1).strip()
-        coord_match = re.search(bbox_pattern, content_answer)
-        if coord_match:
-            coord = [int(coord_match.group(1)), int(coord_match.group(2))]
-            x, y = coord
-            return coord, False
-    return [0, 0, 0, 0], False
+        content_match = re.search(content_pattern, content_answer)
+        if content_match:
+            return content_match.group(1).strip()
+    return ''
 
-def extract_bbox(response):
+def extract_coord(content, contains_multiple=False):
+    # Try to find the bbox within <answer> tags, if can not find, return [0, 0, 0, 0]
     answer_tag_pattern = r'<answer>(.*?)</answer>'
-    bbox_pattern = r'\[(\d+),\s*(\d+),\s*(\d+),\s*(\d+)]'
-    content_answer_match = re.search(answer_tag_pattern, response, re.DOTALL)
+    bbox_pattern = r"\[(\d+),\s*(\d+)\]"
+    content_answer_match = re.search(answer_tag_pattern, content, re.DOTALL)
+    coords = []
     if content_answer_match:
         content_answer = content_answer_match.group(1).strip()
-        coord_match = re.search(bbox_pattern, content_answer)
-        if coord_match:
-            coord = [int(coord_match.group(1)), int(coord_match.group(2)), int(coord_match.group(3)), int(coord_match.group(4))]
-            return coord, True
-    return [0, 0, 0, 0] , False
+        coord_match = re.findall(bbox_pattern, content_answer)
+        for (x, y) in coord_match:
+            coord = [int(x), int(y)]
+            coords.append(coord)
+    
+    if len(coords) == 0:
+        return [0, 0, 0, 0], False
+    
+    if len(coords) == 1 or not contains_multiple:
+        return coords[0], False
+    
+    return coords[:2], False
+
+def extract_bbox(response, contains_multiple=False):
+    answer_tag_pattern = r'<answer>(.*?)</answer>'
+    bbox_pattern = r'\[(\d+),\s*(\d+),\s*(\d+),\s*(\d+)\]'
+    content_answer_match = re.search(answer_tag_pattern, response, re.DOTALL)
+    bboxes = []
+    if content_answer_match:
+        content_answer = content_answer_match.group(1).strip()
+        coord_match = re.findall(bbox_pattern, content_answer)
+        for (x1, x2, y1, y2) in coord_match:
+            bbox = [int(x1), int(x2), int(y1), int(y2)]
+            bboxes.append(bbox)
+
+    if len(bboxes) == 0:
+        return [0, 0, 0, 0], False
+    
+    if len(bboxes) == 1 or not contains_multiple:
+        return bboxes[0], False
+    
+    return bboxes[:2], False
 
 
 def extract_action(response):
@@ -118,6 +145,48 @@ def extract_action(response):
     return None
 
 
+def calculate_distance_reward(coord, bbox, decay_factor=100.0):
+    """
+    Calculate reward based on distance to bounding box using exponential decay.
+    If coord is inside bbox, return 1.0 (correct behavior)
+    If coord is outside bbox, return exponentially decaying reward based on distance
+    to guide the model toward the correct region.
+    
+    Args:
+        coord: [x, y] coordinate
+        bbox: [x1, y1, x2, y2] bounding box
+        decay_factor: controls the rate of exponential decay (smaller = faster decay)
+                     For 1024x756 screen, 100.0 gives:
+                     - 50px away: ~0.61 reward
+                     - 100px away: ~0.37 reward
+                     - 200px away: ~0.14 reward
+    
+    Returns:
+        reward: float between 0 and 1, where 1.0 is only for clicks inside bbox
+    """
+    import math
+    
+    x, y = coord
+    x1, y1, x2, y2 = bbox
+    
+    # Check if coordinate is inside bounding box - this is the only "correct" case
+    if x1 <= x <= x2 and y1 <= y <= y2:
+        return 1.0
+    
+    # Calculate distance to closest point on bounding box
+    # Clamp coordinates to bounding box to find closest point
+    closest_x = max(x1, min(x, x2))
+    closest_y = max(y1, min(y, y2))
+    
+    # Calculate Euclidean distance
+    distance = ((x - closest_x) ** 2 + (y - closest_y) ** 2) ** 0.5
+    
+    # Apply exponential decay: exp(-distance / decay_factor)
+    # This provides smooth guidance while maintaining clear distinction
+    # between correct (inside bbox = 1.0) and guiding (outside bbox < 1.0)
+    reward = math.exp(-distance / decay_factor)
+    
+    return reward
 
 
 def accuracy_reward_action(completions, solution, scales, **kwargs):
@@ -157,7 +226,7 @@ def accuracy_reward_action(completions, solution, scales, **kwargs):
     return rewards
 
 
-def accuracy_reward_coord(completions, solution,scales, **kwargs):
+def accuracy_reward_arg(completions, solution,scales, **kwargs):
     """ 动作坐标reward：判断预测的动作坐标是否在真值的坐标框内
     Reward function that checks if the completion is correct using either symbolic verification or exact string matching.
     """
@@ -180,10 +249,24 @@ def accuracy_reward_coord(completions, solution,scales, **kwargs):
                     student_answer_coord = [int(student_answer_coord[0] * scale[0]), int(student_answer_coord[1] * scale[1])]
                     ground_truth_bbox, flag2 = extract_bbox(sol)
                     show_flage = flag1 and flag2
-                    if ground_truth_bbox[0] <= student_answer_coord[0] <= ground_truth_bbox[2] and ground_truth_bbox[1] <= student_answer_coord[1] <= ground_truth_bbox[3]:
-                        reward = 1.0
-                    else:
-                        reward = 0.0
+                    # Use distance-based reward instead of binary reward
+                    reward = calculate_distance_reward(student_answer_coord, ground_truth_bbox)
+                elif student_answer_action == "drag":
+                    (student_answer_coord_1, student_answer_coord_2), _ = extract_coord(content, contains_multiple=True)
+                    student_answer_coord_1 = [int(student_answer_coord_1[0] * scale[0]), int(student_answer_coord_1[1] * scale[1])]
+                    student_answer_coord_2 = [int(student_answer_coord_2[0] * scale[0]), int(student_answer_coord_2[1] * scale[1])]
+                    (ground_truth_bbox_1, ground_truth_bbox_2), flag2 = extract_bbox(sol, contains_multiple=True)
+                    
+                    # Use distance-based reward for both start and end coordinates
+                    reward_1 = calculate_distance_reward(student_answer_coord_1, ground_truth_bbox_1)
+                    reward_2 = calculate_distance_reward(student_answer_coord_2, ground_truth_bbox_2)
+                    reward = (reward_1 + reward_2) / 2.0  # Average the two rewards
+                elif student_answer_action == "type":
+                    student_answer_content = extract_content(content)
+                    ground_truth_content = extract_content(sol)
+                    if student_answer_content and ground_truth_content:
+                        max_len = max(len(student_answer_content), len(ground_truth_content))
+                        reward = 1.0 - (Levenshtein.distance(student_answer_content, ground_truth_content) / max_len)
                 else:
                     reward = 1.0
             else:
@@ -197,12 +280,20 @@ def accuracy_reward_coord(completions, solution,scales, **kwargs):
             log_path = os.getenv("LOG_PATH")
             # local_rank = int(os.getenv("LOCAL_RANK", 0))
             with open(log_path, "a") as f:
-                f.write(f"------------- {current_time} Accuracy reward of Coord: {reward} -------------\n")
+                f.write(f"------------- {current_time} Accuracy reward of Arg ({ground_truth_action if 'ground_truth_action' in locals() else 'unknown'}): {reward} -------------\n")
                 f.write(f"content: {content}\n")
                 f.write(f"sol: {sol}\n")
-                if show_flage:
+                if 'student_answer_coord' in locals() and 'ground_truth_bbox' in locals():
                     f.write(f"student_answer_coord: {student_answer_coord}\n")
                     f.write(f"ground_truth_bbox: {ground_truth_bbox}\n")
+                    # Calculate distance for logging
+                    x, y = student_answer_coord
+                    x1, y1, x2, y2 = ground_truth_bbox
+                    if not (x1 <= x <= x2 and y1 <= y <= y2):
+                        closest_x = max(x1, min(x, x2))
+                        closest_y = max(y1, min(y, y2))
+                        distance = ((x - closest_x) ** 2 + (y - closest_y) ** 2) ** 0.5
+                        f.write(f"distance_to_bbox: {distance}\n")
     return rewards
 
 
@@ -224,7 +315,7 @@ def format_reward(completions, **kwargs):
 ###  reward registry three parts
 reward_funcs_registry = {
     "accuracy_action": accuracy_reward_action,
-    "accuracy_coord": accuracy_reward_coord,
+    "accuracy_arg": accuracy_reward_arg,
     "format": format_reward,
 }
 
@@ -242,7 +333,7 @@ SYSTEM_PROMPT = (
 
 def main(script_args, training_args, model_args):
     # Get reward functions
-    script_args.reward_funcs = ['accuracy_action','accuracy_coord','format']
+    script_args.reward_funcs = ['accuracy_action','accuracy_arg','format']
     reward_funcs = [reward_funcs_registry[func] for func in script_args.reward_funcs]
 
     # Load the dataset from huggingface
@@ -282,16 +373,37 @@ def main(script_args, training_args, model_args):
                 task_prompt = item['instruction']
                 item['problem'] = (
                     f"In this UI screenshot, I want to perform the command '{task_prompt}'.\n"
-                    "Please provide the action to perform (enumerate in ['click'])"
-                    "and the coordinate where the cursor is moved to(integer) if click is performed.\n"
+                    "Please provide the action to perform (enumerate in ['click', 'drag', 'type'])"
+                    "and the argument for the action to perform:\n"
+                    "1) click: the coordinate where the cursor is moved to when clicking (integers)\n"
+                    "2) drag: the starting and ending coordinates for the cursor when performing the drag (integers)\n"
+                    "3) type: the content text to be typed (string)\n"
                     "Output the thinking process in <think> </think> and final answer in <answer> </answer> tags."
-                    "The output answer format should be as follows:\n"
-                    "<think> ... </think> <answer>[{'action': 'click', 'coordinate': [x, y]}]</answer>\n"
+                    "The output answer format should be one of the following:\n"
+                    "1) <think> ... </think> <answer>[{'action': 'click', 'coordinate': [x, y]}]</answer>\n"
+                    "2) <think> ... </think> <answer>[{'action': 'drag', 'start_coordinate': [x, y], 'end_coordinate': [x, y]}]</answer>\n"
+                    "3) <think> ... </think> <answer>[{'action': 'type', 'content': 'text'}]</answer>\n"
                     "Please strictly follow the format."
                 )
+                # item['problem'] = (
+                #     f"In this UI screenshot, I want to perform the command '{task_prompt}'.\n"
+                #     "Please provide the action to perform (enumerate in ['click'])"
+                #     "and the coordinate where the cursor is moved to when clicking (integers)\n"
+                #     "Output the thinking process in <think> </think> and final answer in <answer> </answer> tags."
+                #     "The output answer format should be:\n"
+                #     "<think> ... </think> <answer>[{'action': 'click', 'coordinate': [x, y]}]</answer>\n"
+                #     "Please strictly follow the format."
+                # )
                 if 'bbox' in item:
-                    item['solution'] = f"<answer>[{{'action': 'click' ,'coordinate': {item['bbox']} }}]</answer>"
+                    item['solution'] = f"<answer>[{{'action': 'click', 'coordinate': {item['bbox']} }}]</answer>"
+                elif 'start_bbox' in item:
+                    #continue
+                    item['solution'] = f"<answer>[{{'action': 'drag', 'start_coordinate': {item['start_bbox']}, 'end_coordinate': {item['end_bbox']} }}]</answer>"
+                elif 'content' in item:
+                    #continue
+                    item['solution'] = f"<answer>[{{'action': 'type', 'content': '{item['content']}' }}]</answer>"
                 else:
+                    #continue
                     item['solution'] = f"<answer>[{{'action': '{item['action']}' ,'coordinate': [0,0,0,0]}}]</answer>"
                 # Handle solution that could be a float or string
                 # if isinstance(solution_value, str):

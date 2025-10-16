@@ -52,7 +52,7 @@ torchrun --nproc_per_node="${ARNOLD_WORKER_GPU}" \
     --gradient_accumulation_steps 1 \
     --logging_steps 1 \
     --bf16 \
-    --report_to wandb \
+    --report_to tensorboard \
     --gradient_checkpointing true \
     --attn_implementation flash_attention_2 \
     --max_pixels 2359296 \

@@ -18,6 +18,7 @@ from datetime import datetime
 from dataclasses import dataclass, field
 from typing import Optional
 import PIL
+import Levenshtein
 
 from datasets import load_dataset, load_from_disk
 from transformers import Qwen2VLForConditionalGeneration
@@ -78,30 +79,57 @@ class GRPOScriptArguments(ScriptArguments):
 #             coord = [int(coord_match.group(1)), int(coord_match.group(2))]
 #             return coord , True
 #     return [0, 0], False
-def extract_coord(content):
-    # Try to find the bbox within <answer> tags, if can not find, return [0, 0, 0, 0]
+def extract_content(content):
     answer_tag_pattern = r'<answer>(.*?)</answer>'
-    bbox_pattern = r'\{.*\[(\d+),\s*(\d+)]\s*.*\}'
+    content_pattern = r"'content': '(.*)'"
     content_answer_match = re.search(answer_tag_pattern, content, re.DOTALL)
     if content_answer_match:
         content_answer = content_answer_match.group(1).strip()
-        coord_match = re.search(bbox_pattern, content_answer)
-        if coord_match:
-            coord = [int(coord_match.group(1)), int(coord_match.group(2))]
-            x, y = coord
-            return coord, False
-    return [0, 0, 0, 0], False
-def extract_bbox(response):
+        content_match = re.search(content_pattern, content_answer)
+        if content_match:
+            return content_match.group(1).strip()
+    return ''
+
+def extract_coord(content, contains_multiple=False):
+    # Try to find the bbox within <answer> tags, if can not find, return [0, 0, 0, 0]
     answer_tag_pattern = r'<answer>(.*?)</answer>'
-    bbox_pattern = r'\[(\d+),\s*(\d+),\s*(\d+),\s*(\d+)]'
-    content_answer_match = re.search(answer_tag_pattern, response, re.DOTALL)
+    bbox_pattern = r"\[(\d+),\s*(\d+)\]"
+    content_answer_match = re.search(answer_tag_pattern, content, re.DOTALL)
+    coords = []
     if content_answer_match:
         content_answer = content_answer_match.group(1).strip()
-        coord_match = re.search(bbox_pattern, content_answer)
-        if coord_match:
-            coord = [int(coord_match.group(1)), int(coord_match.group(2)), int(coord_match.group(3)), int(coord_match.group(4))]
-            return coord, True
-    return [0, 0, 0, 0] , False
+        coord_match = re.findall(bbox_pattern, content_answer)
+        for (x, y) in coord_match:
+            coord = [int(x), int(y)]
+            coords.append(coord)
+    
+    if len(coords) == 0:
+        return [0, 0, 0, 0], False
+    
+    if len(coords) == 1 or not contains_multiple:
+        return coords[0], False
+    
+    return coords[:2], False
+
+def extract_bbox(response, contains_multiple=False):
+    answer_tag_pattern = r'<answer>(.*?)</answer>'
+    bbox_pattern = r'\[(\d+),\s*(\d+),\s*(\d+),\s*(\d+)\]'
+    content_answer_match = re.search(answer_tag_pattern, response, re.DOTALL)
+    bboxes = []
+    if content_answer_match:
+        content_answer = content_answer_match.group(1).strip()
+        coord_match = re.findall(bbox_pattern, content_answer)
+        for (x1, x2, y1, y2) in coord_match:
+            bbox = [int(x1), int(x2), int(y1), int(y2)]
+            bboxes.append(bbox)
+
+    if len(bboxes) == 0:
+        return [0, 0, 0, 0], False
+    
+    if len(bboxes) == 1 or not contains_multiple:
+        return bboxes[0], False
+    
+    return bboxes[:2], False
 
 
 def extract_action(response):
@@ -162,7 +190,7 @@ def accuracy_reward_action(completions, solution, scales, **kwargs):
     return rewards
 
 
-def accuracy_reward_coord(completions, solution,scales, **kwargs):
+def accuracy_reward_arg(completions, solution,scales, **kwargs):
     """ 动作坐标reward：判断预测的动作坐标是否在真值的坐标框内
     Reward function that checks if the completion is correct using either symbolic verification or exact string matching.
     """
@@ -189,6 +217,22 @@ def accuracy_reward_coord(completions, solution,scales, **kwargs):
                         reward = 1.0
                     else:
                         reward = 0.0
+                elif student_answer_action == "drag":
+                    (student_answer_coord_1, student_answer_coord_2), _ = extract_coord(content, contains_multiple=True)
+                    student_answer_coord_1 = [int(student_answer_coord_1[0] * scale[0]), int(student_answer_coord_1[1] * scale[1])]
+                    student_answer_coord_2 = [int(student_answer_coord_2[0] * scale[0]), int(student_answer_coord_2[1] * scale[1])]
+                    (ground_truth_bbox_1, ground_truth_bbox_2), flag2 = extract_bbox(sol, contains_multiple=True)
+                    
+                    if ground_truth_bbox_1[0] <= student_answer_coord_1[0] <= ground_truth_bbox_1[2] and ground_truth_bbox_1[1] <= student_answer_coord_1[1] <= ground_truth_bbox_1[3]:
+                        reward += 0.5
+                    if ground_truth_bbox_2[0] <= student_answer_coord_2[0] <= ground_truth_bbox_2[2] and ground_truth_bbox_2[1] <= student_answer_coord_2[1] <= ground_truth_bbox_2[3]:
+                        reward += 0.5
+                elif student_answer_action == "type":
+                    student_answer_content = extract_content(content)
+                    ground_truth_content = extract_content(content)
+                    if student_answer_content and ground_truth_content:
+                        max_len = max(len(student_answer_content), len(ground_truth_content))
+                        reward = Levenshtein.distance(student_answer_content, ground_truth_content) / max_len
                 else:
                     reward = 1.0
             else:
@@ -202,7 +246,7 @@ def accuracy_reward_coord(completions, solution,scales, **kwargs):
             log_path = os.getenv("LOG_PATH")
             # local_rank = int(os.getenv("LOCAL_RANK", 0))
             with open(log_path, "a") as f:
-                f.write(f"------------- {current_time} Accuracy reward of Coord: {reward} -------------\n")
+                f.write(f"------------- {current_time} Accuracy reward of Arg ({ground_truth_action}): {reward} -------------\n")
                 f.write(f"content: {content}\n")
                 f.write(f"sol: {sol}\n")
                 if show_flage:
@@ -229,7 +273,7 @@ def format_reward(completions, **kwargs):
 ###  reward registry three parts
 reward_funcs_registry = {
     "accuracy_action": accuracy_reward_action,
-    "accuracy_coord": accuracy_reward_coord,
+    "accuracy_arg": accuracy_reward_arg,
     "format": format_reward,
 }
 
@@ -247,7 +291,7 @@ SYSTEM_PROMPT = (
 
 def main(script_args, training_args, model_args):
     # Get reward functions
-    script_args.reward_funcs = ['accuracy_action','accuracy_coord','format']
+    script_args.reward_funcs = ['accuracy_action','accuracy_arg','format']
     reward_funcs = [reward_funcs_registry[func] for func in script_args.reward_funcs]
 
     # Load the dataset from huggingface
@@ -287,16 +331,37 @@ def main(script_args, training_args, model_args):
                 task_prompt = item['instruction']
                 item['problem'] = (
                     f"In this UI screenshot, I want to perform the command '{task_prompt}'.\n"
-                    "Please provide the action to perform (enumerate in ['click'])"
-                    "and the coordinate where the cursor is moved to(integer) if click is performed.\n"
+                    "Please provide the action to perform (enumerate in ['click', 'drag', 'type'])"
+                    "and the argument for the action to perform:\n"
+                    "1) click: the coordinate where the cursor is moved to when clicking (integers)\n"
+                    "2) drag: the starting and ending coordinates for the cursor when performing the drag (integers)\n"
+                    "3) type: the content text to be typed (string)\n"
                     "Output the final answer in <answer> </answer> tags directly."
-                    "The output answer format should be as follows:\n"
-                    "<answer>[{'action': 'click', 'coordinate': [x, y]}]</answer>\n"
+                    "The output answer format should be one of the following:\n"
+                    "1) <answer>[{'action': 'click', 'coordinate': [x, y]}]</answer>\n"
+                    "2) <answer>[{'action': 'drag', 'start_coordinate': [x, y], 'end_coordinate': [x, y]}]</answer>\n"
+                    "3) <answer>[{'action': 'type', 'content': 'text'}]</answer>\n"
                     "Please strictly follow the format."
                 )
+                # item['problem'] = (
+                #     f"In this UI screenshot, I want to perform the command '{task_prompt}'.\n"
+                #     "Please provide the action to perform (enumerate in ['click', 'drag', 'type'])"
+                #     "and the coordinate where the cursor is moved to when clicking (integers)\n"
+                #     "Output the final answer in <answer> </answer> tags directly."
+                #     "The output answer format should be:\n"
+                #     "<answer>[{'action': 'click', 'coordinate': [x, y]}]</answer>\n"
+                #     "Please strictly follow the format."
+                # )
                 if 'bbox' in item:
-                    item['solution'] = f"<answer>[{{'action': 'click' ,'coordinate': {item['bbox']} }}]</answer>"
+                    item['solution'] = f"<answer>[{{'action': 'click', 'coordinate': {item['bbox']} }}]</answer>"
+                elif 'start_bbox' in item:
+                    #continue
+                    item['solution'] = f"<answer>[{{'action': 'drag', 'start_coordinate': {item['start_bbox']}, 'end_coordinate': {item['end_bbox']} }}]</answer>"
+                elif 'content' in item:
+                    #continue
+                    item['solution'] = f"<answer>[{{'action': 'type', 'content': '{item['content']}' }}]</answer>"
                 else:
+                    #continue
                     item['solution'] = f"<answer>[{{'action': '{item['action']}' ,'coordinate': [0,0,0,0]}}]</answer>"
                 # Handle solution that could be a float or string
                 # if isinstance(solution_value, str):

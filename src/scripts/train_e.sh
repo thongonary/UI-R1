@@ -23,7 +23,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node=4 \
     --gradient_accumulation_steps 2 \
     --logging_steps 1 \
     --bf16 \
-    --report_to none \
+    --report_to tensorboard \
     --max_completion_length 512 \
     --gradient_checkpointing true \
     --attn_implementation flash_attention_2 \
@@ -60,7 +60,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node=4 \
     --gradient_accumulation_steps 2 \
     --logging_steps 1 \
     --bf16 \
-    --report_to none \
+    --report_to tensorboard \
     --max_completion_length 512 \
     --gradient_checkpointing true \
     --attn_implementation flash_attention_2 \
