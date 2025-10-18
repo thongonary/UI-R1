@@ -1,0 +1,1522 @@
+[
+  {
+    "img_filename": "3_selection_4.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Change the formatting of the highlighted section to bold.",
+    "action": "click",
+    "thought": "The task is clear: turn this line bold. I'll accomplish that by navigating to the ribbon, locating the Bold button, and clicking it to apply the formatting."
+  },
+  {
+    "img_filename": "3_selection_5.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Switch the highlighted text to italic.",
+    "action": "click",
+    "thought": "The selected line should be italicized. I'll accomplish this by pressing the Italic button in the ribbon."
+  },
+  {
+    "img_filename": "3_selection_2.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Apply underline style to the text that\u2019s selected.",
+    "action": "click",
+    "thought": "I'll complete the task by clicking the Underline icon in the ribbon so the line is underlined."
+  },
+  {
+    "img_filename": "3_selection_1.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Strike through the currently chosen text.",
+    "action": "click",
+    "thought": "The text should appear with a line through it. To do so, I'll click the Strikethrough button in the ribbon."
+  },
+  {
+    "img_filename": "3_selection_4.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Apply left margin alignment to the highlighted section.",
+    "action": "click",
+    "thought": "To satisfy the instruction, I'll click the Align Left icon in the ribbon, aligning the text left."
+  },
+  {
+    "img_filename": "3_selection_4.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Make the chosen text align center.",
+    "action": "click",
+    "thought": "The text should be evenly centered on the slide. I'll do this by clicking the Center button in the ribbon."
+  },
+  {
+    "img_filename": "3_selection_4.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Move the highlighted text to the right side.",
+    "action": "click",
+    "thought": "To align the text as requested, I'll go to the ribbon and click the Align Right icon."
+  },
+  {
+    "img_filename": "3_selection_2.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Apply justification to the chosen text.",
+    "action": "click",
+    "thought": "I'll execute the command by selecting the Justify button in the ribbon, fully aligning the text."
+  },
+  {
+    "img_filename": "3_selection_5.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Transform the highlighted content into a list with bullets.",
+    "action": "click",
+    "thought": "To finish, I'll go to the ribbon and click the Bullets button, converting the line into a list item."
+  },
+  {
+    "img_filename": "3_selection_5.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Reduce the font size of the active selection.",
+    "action": "click",
+    "thought": "The request is to reduce the font size. I'll click the Decrease Font Size button in the ribbon to make the text smaller."
+  },
+  {
+    "img_filename": "accounting_selection_3.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Change the selected characters to bold.",
+    "action": "click",
+    "thought": "In order to emphasize this line, I must apply bold formatting. The way to do this is by clicking the Bold button in the ribbon so the font weight increases."
+  },
+  {
+    "img_filename": "accounting_selection_2.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Add italic emphasis to the current selection.",
+    "action": "click",
+    "thought": "The user expects this line in italics. I'll apply it by clicking the Italic command in the ribbon."
+  },
+  {
+    "img_filename": "accounting_selection_3.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Make the active selection underlined.",
+    "action": "click",
+    "thought": "I see that underline formatting is required. The action is to press the Underline button in the ribbon."
+  },
+  {
+    "img_filename": "accounting_selection_1.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Change the formatting of the highlighted section to strikethrough.",
+    "action": "click",
+    "thought": "The user wants this line crossed out. I'll achieve that by clicking the Strikethrough button in the ribbon."
+  },
+  {
+    "img_filename": "accounting_selection_3.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Move the highlighted text to the left side.",
+    "action": "click",
+    "thought": "The instruction is to left align the line. I'll carry this out by clicking the Align Left button in the ribbon."
+  },
+  {
+    "img_filename": "accounting_selection_2.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Make the current selection centered.",
+    "action": "click",
+    "thought": "The command is to center the selection. I'll go to the ribbon and press the Center Align control."
+  },
+  {
+    "img_filename": "accounting_selection_1.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Set the highlighted section to right aligned.",
+    "action": "click",
+    "thought": "To align the text as requested, I'll go to the ribbon and click the Align Right icon."
+  },
+  {
+    "img_filename": "accounting_selection_2.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Move the highlighted text to justified alignment.",
+    "action": "click",
+    "thought": "To make the paragraph justified, I'll locate the Justify option in the ribbon and press it."
+  },
+  {
+    "img_filename": "accounting_selection_3.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Mark the selected lines with bullets.",
+    "action": "click",
+    "thought": "To complete the task, I'll use the Bullets option in the ribbon to add bullet markers."
+  },
+  {
+    "img_filename": "accounting_selection_3.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Shrink the currently chosen text.",
+    "action": "click",
+    "thought": "The selected text should shrink in appearance. I'll accomplish this by clicking the Decrease Font button in the ribbon."
+  },
+  {
+    "img_filename": "aircraft_selection_4.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Change the formatting of the highlighted section to bold.",
+    "action": "click",
+    "thought": "The command is to bold the line. To fulfill it, I'll look in the ribbon controls, select the Bold option, and ensure the text is switched to a bold typeface."
+  },
+  {
+    "img_filename": "aircraft_selection_3.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Change the current selection to italic.",
+    "action": "click",
+    "thought": "I'll carry out the request by going to the ribbon and clicking the Italic button, which changes the text to italics."
+  },
+  {
+    "img_filename": "aircraft_selection_3.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Format the chosen words as underlined.",
+    "action": "click",
+    "thought": "The user wants an underline applied. I'll locate the Underline control in the ribbon and click it."
+  },
+  {
+    "img_filename": "aircraft_selection_3.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Format the chosen words as strikethrough.",
+    "action": "click",
+    "thought": "To apply strikethrough formatting, I'll locate the Strikethrough control in the ribbon and press it."
+  },
+  {
+    "img_filename": "aircraft_selection_1.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Align the selected text to the left.",
+    "action": "click",
+    "thought": "The line should be aligned left. I'll click the Align Left button in the ribbon to shift the text to the left margin."
+  },
+  {
+    "img_filename": "aircraft_selection_5.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Set the highlighted paragraph to align center.",
+    "action": "click",
+    "thought": "To carry out the request, I'll locate the Center Align icon in the ribbon and click it."
+  },
+  {
+    "img_filename": "aircraft_selection_4.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Set the highlighted section to right aligned.",
+    "action": "click",
+    "thought": "The user wants this line aligned right. I'll perform that action with the Align Right option in the ribbon."
+  },
+  {
+    "img_filename": "aircraft_selection_5.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Set the highlighted section to justified.",
+    "action": "click",
+    "thought": "To apply justification, I'll press the Justify control in the ribbon toolbar."
+  },
+  {
+    "img_filename": "aircraft_selection_1.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Convert the current selection into a bulleted format.",
+    "action": "click",
+    "thought": "To finish, I'll go to the ribbon and click the Bullets button, converting the line into a list item."
+  },
+  {
+    "img_filename": "aircraft_selection_5.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Reduce the font size of the active selection.",
+    "action": "click",
+    "thought": "The task is to apply a smaller font size. I'll do that with the Decrease Font Size option in the ribbon toolbar."
+  },
+  {
+    "img_filename": "applications_selection_5.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Switch the highlighted text to bold.",
+    "action": "click",
+    "thought": "I understand that bold formatting is needed here. My next action is to move to the ribbon, find the Bold icon, and click it to apply the bold style to the current selection."
+  },
+  {
+    "img_filename": "applications_selection_2.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Apply italic formatting to the highlighted text.",
+    "action": "click",
+    "thought": "I need to apply emphasis using italics. The way to achieve this is by pressing the Italic button in the ribbon."
+  },
+  {
+    "img_filename": "applications_selection_2.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Underline the chosen text.",
+    "action": "click",
+    "thought": "I'll complete the task by clicking the Underline icon in the ribbon so the line is underlined."
+  },
+  {
+    "img_filename": "applications_selection_5.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Change the selected characters to strikethrough.",
+    "action": "click",
+    "thought": "The user wants this line crossed out. I'll achieve that by clicking the Strikethrough button in the ribbon."
+  },
+  {
+    "img_filename": "applications_selection_5.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Move the highlighted text to the left side.",
+    "action": "click",
+    "thought": "To complete the task, I'll select the Align Left option in the ribbon, which left aligns the text."
+  },
+  {
+    "img_filename": "applications_selection_1.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Switch the chosen words to centered alignment.",
+    "action": "click",
+    "thought": "I'll execute the command by pressing the Center option in the ribbon, aligning the text to the middle."
+  },
+  {
+    "img_filename": "applications_selection_3.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Move the current selection to the right margin.",
+    "action": "click",
+    "thought": "To make this text right aligned, I'll locate the Align Right option in the ribbon and click it."
+  },
+  {
+    "img_filename": "applications_selection_5.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Make the active selection justified.",
+    "action": "click",
+    "thought": "The command is to justify this line. I'll click the Justify button in the ribbon so the text is evenly aligned on both sides."
+  },
+  {
+    "img_filename": "applications_selection_2.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Transform the highlighted content into a list with bullets.",
+    "action": "click",
+    "thought": "The command is to add bullet points. I'll do so by using the Bullets option in the ribbon."
+  },
+  {
+    "img_filename": "applications_selection_3.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Make the highlighted portion smaller.",
+    "action": "click",
+    "thought": "The selected text should shrink in appearance. I'll accomplish this by clicking the Decrease Font button in the ribbon."
+  },
+  {
+    "img_filename": "careers_selection_2.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Make the active selection bold.",
+    "action": "click",
+    "thought": "I understand that bold formatting is needed here. My next action is to move to the ribbon, find the Bold icon, and click it to apply the bold style to the current selection."
+  },
+  {
+    "img_filename": "careers_selection_3.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Mark the selected text as italic.",
+    "action": "click",
+    "thought": "I understand that italics are required here. My step is to click the Italic button in the ribbon toolbar."
+  },
+  {
+    "img_filename": "careers_selection_2.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Apply an underline effect to the highlighted words.",
+    "action": "click",
+    "thought": "The instruction is clear: underline the text. I'll perform this by pressing the Underline control in the ribbon."
+  },
+  {
+    "img_filename": "careers_selection_2.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Set the highlighted content to strikethrough.",
+    "action": "click",
+    "thought": "I need to strike through the selection. The way to do this is by pressing the Strikethrough option in the ribbon."
+  },
+  {
+    "img_filename": "careers_selection_1.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Update the selection to use left alignment.",
+    "action": "click",
+    "thought": "The line should be aligned left. I'll click the Align Left button in the ribbon to shift the text to the left margin."
+  },
+  {
+    "img_filename": "careers_selection_2.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Center the selected text.",
+    "action": "click",
+    "thought": "This line must appear in the middle. I'll click the Center Align button in the ribbon to achieve this."
+  },
+  {
+    "img_filename": "careers_selection_1.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Update the selection to use right alignment.",
+    "action": "click",
+    "thought": "The instruction is to align this text right. I'll click the Align Right button in the ribbon so it moves to the right margin."
+  },
+  {
+    "img_filename": "careers_selection_1.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Align the chosen content with justification.",
+    "action": "click",
+    "thought": "The request is to justify the selection. I'll go to the ribbon and press the Justify option."
+  },
+  {
+    "img_filename": "careers_selection_2.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Format the highlighted section with bullets.",
+    "action": "click",
+    "thought": "The instruction is to format this as a bullet list. I'll achieve that by clicking the Bullets control in the ribbon."
+  },
+  {
+    "img_filename": "careers_selection_1.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Make the highlighted portion smaller.",
+    "action": "click",
+    "thought": "The user wants smaller text. I'll do that by clicking the Decrease Font Size control in the ribbon toolbar."
+  },
+  {
+    "img_filename": "durand_selection_3.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Add bold emphasis to the current selection.",
+    "action": "click",
+    "thought": "To carry out the instruction, I'll use the ribbon interface. Clicking the Bold button there will update the selected line with bold formatting."
+  },
+  {
+    "img_filename": "durand_selection_3.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Change the selected characters to italic.",
+    "action": "click",
+    "thought": "I'll carry out the request by going to the ribbon and clicking the Italic button, which changes the text to italics."
+  },
+  {
+    "img_filename": "durand_selection_1.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Apply underline to the highlighted text.",
+    "action": "click",
+    "thought": "The instruction is clear: underline the text. I'll perform this by pressing the Underline control in the ribbon."
+  },
+  {
+    "img_filename": "durand_selection_2.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Make the current selection struck through.",
+    "action": "click",
+    "thought": "The command is to add a strikethrough. I'll click the Strikethrough control in the ribbon toolbar."
+  },
+  {
+    "img_filename": "durand_selection_3.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Apply left alignment to the chosen text.",
+    "action": "click",
+    "thought": "The selected text should sit flush with the left margin. I'll press the Align Left control in the ribbon to apply this."
+  },
+  {
+    "img_filename": "durand_selection_1.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Move the current selection to the center of the page.",
+    "action": "click",
+    "thought": "The user wants this line aligned to the center. I'll accomplish this by clicking the Center Align control in the ribbon."
+  },
+  {
+    "img_filename": "durand_selection_1.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Align the selected text to the right.",
+    "action": "click",
+    "thought": "The command is to shift the text right. I'll do that by pressing the Align Right control in the ribbon."
+  },
+  {
+    "img_filename": "durand_selection_3.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Align the chosen content with justification.",
+    "action": "click",
+    "thought": "To apply justification, I'll press the Justify control in the ribbon toolbar."
+  },
+  {
+    "img_filename": "durand_selection_3.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Turn the highlighted content into a bulleted list.",
+    "action": "click",
+    "thought": "The request is to create bullet points. I'll locate the Bullets option in the ribbon and click it."
+  },
+  {
+    "img_filename": "durand_selection_3.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Switch the highlighted text to a smaller size.",
+    "action": "click",
+    "thought": "The request is to reduce the font size. I'll click the Decrease Font Size button in the ribbon to make the text smaller."
+  },
+  {
+    "img_filename": "glases_selection_1.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Apply bold weight to the highlighted text.",
+    "action": "click",
+    "thought": "The user wants stronger emphasis for this line. That means I should click the Bold button in the ribbon, which will update the formatting of the selected text to bold."
+  },
+  {
+    "img_filename": "glases_selection_1.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Apply italic style to the text that\u2019s selected.",
+    "action": "click",
+    "thought": "The user expects this line in italics. I'll apply it by clicking the Italic command in the ribbon."
+  },
+  {
+    "img_filename": "glases_selection_3.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Switch the highlighted text to underlined.",
+    "action": "click",
+    "thought": "To make the line underlined, I'll click the Underline option in the ribbon toolbar."
+  },
+  {
+    "img_filename": "glases_selection_3.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Apply a strikethrough effect to the highlighted words.",
+    "action": "click",
+    "thought": "The user wants this line crossed out. I'll achieve that by clicking the Strikethrough button in the ribbon."
+  },
+  {
+    "img_filename": "glases_selection_1.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Align the chosen content to the left boundary.",
+    "action": "click",
+    "thought": "The instruction is to left align the line. I'll carry this out by clicking the Align Left button in the ribbon."
+  },
+  {
+    "img_filename": "glases_selection_2.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Make the current selection centered.",
+    "action": "click",
+    "thought": "The instruction is to center this line. I'll click the Center Align button in the ribbon so the text sits in the middle."
+  },
+  {
+    "img_filename": "glases_selection_1.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Align the chosen content to the right boundary.",
+    "action": "click",
+    "thought": "To complete the task, I'll click the Align Right button in the ribbon so the text is right aligned."
+  },
+  {
+    "img_filename": "glases_selection_2.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Set the highlighted section to justified.",
+    "action": "click",
+    "thought": "The request is to justify the selection. I'll go to the ribbon and press the Justify option."
+  },
+  {
+    "img_filename": "glases_selection_3.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Update the chosen section into bullets.",
+    "action": "click",
+    "thought": "To finish, I'll go to the ribbon and click the Bullets button, converting the line into a list item."
+  },
+  {
+    "img_filename": "glases_selection_3.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Lower the font size of the selection.",
+    "action": "click",
+    "thought": "This line must be shown in a smaller font. I'll achieve that by using the Decrease Font Size option in the ribbon."
+  },
+  {
+    "img_filename": "obesity_selection_1.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Set the highlighted content to bold.",
+    "action": "click",
+    "thought": "The command is to bold the line. To fulfill it, I'll look in the ribbon controls, select the Bold option, and ensure the text is switched to a bold typeface."
+  },
+  {
+    "img_filename": "obesity_selection_3.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Format the chosen words as italic.",
+    "action": "click",
+    "thought": "This text needs a slanted style. To achieve italics, I'll use the Italic button in the ribbon."
+  },
+  {
+    "img_filename": "obesity_selection_2.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Underline the chosen text.",
+    "action": "click",
+    "thought": "The request is to underline the text. I'll click the Underline button in the ribbon to add a line beneath the selected text."
+  },
+  {
+    "img_filename": "obesity_selection_1.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Strike through the currently chosen text.",
+    "action": "click",
+    "thought": "The text should appear with a line through it. To do so, I'll click the Strikethrough button in the ribbon."
+  },
+  {
+    "img_filename": "obesity_selection_3.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Apply left margin alignment to the highlighted section.",
+    "action": "click",
+    "thought": "To follow the request, I'll locate the Align Left option in the ribbon and press it so the text is left aligned."
+  },
+  {
+    "img_filename": "obesity_selection_3.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Move the highlighted text to the center.",
+    "action": "click",
+    "thought": "The task is to center this line. I'll achieve that with the Center Align button in the ribbon."
+  },
+  {
+    "img_filename": "obesity_selection_3.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Align the selected text to the right.",
+    "action": "click",
+    "thought": "To carry out the instruction, I'll press the Align Right control in the ribbon to right align the selection."
+  },
+  {
+    "img_filename": "obesity_selection_2.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Apply even spacing to the selection.",
+    "action": "click",
+    "thought": "To apply justification, I'll press the Justify control in the ribbon toolbar."
+  },
+  {
+    "img_filename": "obesity_selection_2.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Transform the highlighted content into a list with bullets.",
+    "action": "click",
+    "thought": "The request is to create bullet points. I'll locate the Bullets option in the ribbon and click it."
+  },
+  {
+    "img_filename": "obesity_selection_1.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Reduce the font size of the highlighted text.",
+    "action": "click",
+    "thought": "The command is to lower the font size. I'll click the Decrease Font control in the ribbon."
+  },
+  {
+    "img_filename": "social_selection_4.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Format the chosen words as bold.",
+    "action": "click",
+    "thought": "The instruction is to bold this line. To achieve that, I need to locate the Bold button in the ribbon and click it, which will apply the heavier font weight to the selected text."
+  },
+  {
+    "img_filename": "social_selection_3.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Apply italic weight to the highlighted text.",
+    "action": "click",
+    "thought": "I'll carry out the request by going to the ribbon and clicking the Italic button, which changes the text to italics."
+  },
+  {
+    "img_filename": "social_selection_5.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Change the formatting of the highlighted section to underline.",
+    "action": "click",
+    "thought": "The selected words should gain an underline. To do this, I'll use the Underline button in the ribbon."
+  },
+  {
+    "img_filename": "social_selection_5.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Set the highlighted content to strikethrough.",
+    "action": "click",
+    "thought": "The user wants this line crossed out. I'll achieve that by clicking the Strikethrough button in the ribbon."
+  },
+  {
+    "img_filename": "social_selection_2.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Apply a left align style to the selection.",
+    "action": "click",
+    "thought": "The selected text should sit flush with the left margin. I'll press the Align Left control in the ribbon to apply this."
+  },
+  {
+    "img_filename": "social_selection_1.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Align the chosen content to the central boundary.",
+    "action": "click",
+    "thought": "I'll execute the command by pressing the Center option in the ribbon, aligning the text to the middle."
+  },
+  {
+    "img_filename": "social_selection_4.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Update the selection to use right alignment.",
+    "action": "click",
+    "thought": "To carry out the instruction, I'll press the Align Right control in the ribbon to right align the selection."
+  },
+  {
+    "img_filename": "social_selection_5.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Change the highlighted words to justified.",
+    "action": "click",
+    "thought": "To follow the instruction, I'll click the Justify icon in the ribbon so the text aligns both left and right."
+  },
+  {
+    "img_filename": "social_selection_2.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Convert the current selection into a bulleted format.",
+    "action": "click",
+    "thought": "The instruction is to format this as a bullet list. I'll achieve that by clicking the Bullets control in the ribbon."
+  },
+  {
+    "img_filename": "social_selection_3.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Reduce the font size of the highlighted text.",
+    "action": "click",
+    "thought": "The selected text should shrink in appearance. I'll accomplish this by clicking the Decrease Font button in the ribbon."
+  },
+  {
+    "img_filename": "worms_selection_5.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Change the formatting of the highlighted section to bold.",
+    "action": "click",
+    "thought": "The action is to bold this text. That means I must locate the Bold icon in the ribbon toolbar and press it so the selected line appears in bold type."
+  },
+  {
+    "img_filename": "worms_selection_1.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Set the highlighted content to italic.",
+    "action": "click",
+    "thought": "I need to apply emphasis using italics. The way to achieve this is by pressing the Italic button in the ribbon."
+  },
+  {
+    "img_filename": "worms_selection_5.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Apply underline to the highlighted text.",
+    "action": "click",
+    "thought": "The user wants an underline applied. I'll locate the Underline control in the ribbon and click it."
+  },
+  {
+    "img_filename": "worms_selection_2.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Change the formatting of the highlighted section to strikethrough.",
+    "action": "click",
+    "thought": "The command is to add a strikethrough. I'll click the Strikethrough control in the ribbon toolbar."
+  },
+  {
+    "img_filename": "worms_selection_3.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Apply a left align style to the selection.",
+    "action": "click",
+    "thought": "The instruction is to left align the line. I'll carry this out by clicking the Align Left button in the ribbon."
+  },
+  {
+    "img_filename": "worms_selection_2.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Apply a central alignment to the selection.",
+    "action": "click",
+    "thought": "The user wants this line aligned to the center. I'll accomplish this by clicking the Center Align control in the ribbon."
+  },
+  {
+    "img_filename": "worms_selection_4.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Move the current selection to the right margin.",
+    "action": "click",
+    "thought": "The user wants this line aligned right. I'll perform that action with the Align Right option in the ribbon."
+  },
+  {
+    "img_filename": "worms_selection_5.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Apply justification formatting to the highlighted text.",
+    "action": "click",
+    "thought": "The request is to justify the selection. I'll go to the ribbon and press the Justify option."
+  },
+  {
+    "img_filename": "worms_selection_3.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Mark the selected lines with bullets.",
+    "action": "click",
+    "thought": "The text must appear as a bulleted list. I'll carry this out by selecting the Bullets control in the ribbon."
+  },
+  {
+    "img_filename": "worms_selection_3.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Format the chosen words with a smaller font.",
+    "action": "click",
+    "thought": "The selected text should shrink in appearance. I'll accomplish this by clicking the Decrease Font button in the ribbon."
+  },
+  {
+    "img_filename": "3_font.png",
+    "content": "Palatino Linotype",
+    "instruction": "Reformat the selection by applying Palatino Linotype.",
+    "action": "type",
+    "thought": "The instruction is to reformat the selection with a new font. The selection step is already complete, so all that\u2019s left is to type 'Palatino Linotype' into the font box and confirm it.\n"
+  },
+  {
+    "img_filename": "3_selection_4.png",
+    "content": "The heart beats about 100,000 times daily.",
+    "instruction": "Set the chosen text content to 'The heart beats about 100,000 times daily.'.",
+    "action": "type",
+    "thought": "The request is to replace the selection with a new sentence. Since the text is already selected, all I need to do is type 'The heart beats about 100,000 times daily.' over it.\n"
+  },
+  {
+    "img_filename": "3.png",
+    "start_bbox": [
+      383,
+      471,
+      387,
+      482
+    ],
+    "end_bbox": [
+      441,
+      488,
+      451,
+      501
+    ],
+    "instruction": "Select the third bullet point.",
+    "action": "drag",
+    "thought": "The request is to select the third bullet point. To do this, I must click at the start of the third bullet and drag the mouse to the end of it to fully select the text.\n"
+  },
+  {
+    "img_filename": "accounting_font.png",
+    "content": "Palatino Linotype",
+    "instruction": "Reformat the selection by applying Palatino Linotype.",
+    "action": "type",
+    "thought": "The instruction is to reformat the selection with a new font. The selection is prepared, so now I just type 'Palatino Linotype' into the font field to apply it.\n"
+  },
+  {
+    "img_filename": "accounting_selection_2.png",
+    "content": "A leap year occurs every four years.",
+    "instruction": "Switch the current selection for 'A leap year occurs every four years.'.",
+    "action": "type",
+    "thought": "The request is to replace the selection with a new sentence. The target text is already highlighted, so I\u2019ll directly type 'A leap year occurs every four years.' into place.\n"
+  },
+  {
+    "img_filename": "accounting.png",
+    "start_bbox": [
+      316,
+      433,
+      322,
+      443
+    ],
+    "end_bbox": [
+      399,
+      481,
+      409,
+      493
+    ],
+    "instruction": "Select the second line.",
+    "action": "drag",
+    "thought": "The request is to select the second line. This requires clicking at the beginning of the second line and dragging to its end to select it completely.\n"
+  },
+  {
+    "img_filename": "aircraft_font.png",
+    "content": "Bookman",
+    "instruction": "Apply Bookman as the typeface for the chosen text.",
+    "action": "type",
+    "thought": "The user wants Bookman applied as the font. The font box is ready, so the remaining step is to type 'Bookman' and set it.\n"
+  },
+  {
+    "img_filename": "aircraft_selection_5.png",
+    "content": "Venus spins backward compared to most planets.",
+    "instruction": "Insert the text 'Venus spins backward compared to most planets.' into the selection.",
+    "action": "type",
+    "thought": "The request is to replace the selection with a new sentence. With the selection done, all I have to do is type 'Venus spins backward compared to most planets.' as the replacement.\n"
+  },
+  {
+    "img_filename": "aircraft.png",
+    "start_bbox": [
+      378,
+      371,
+      385,
+      381
+    ],
+    "end_bbox": [
+      488,
+      372,
+      498,
+      380
+    ],
+    "instruction": "Select the caption above the image.",
+    "action": "drag",
+    "thought": "The request is to select the caption above the image. I\u2019ll click at the start of the caption and drag through to the end to capture it all.\n"
+  },
+  {
+    "img_filename": "applications_font.png",
+    "content": "Optima",
+    "instruction": "Replace the active font with Optima.",
+    "action": "type",
+    "thought": "The user wants Optima set as the font. The necessary area is already focused, so I only need to type 'Optima' into the font box.\n"
+  },
+  {
+    "img_filename": "applications_selection_5.png",
+    "content": "Bananas are berries; strawberries are not.",
+    "instruction": "Rewrite the highlighted section to say 'Bananas are berries; strawberries are not.'.",
+    "action": "type",
+    "thought": "The request is to replace the selection with a new sentence. The previous step ensured the text is ready, so I\u2019ll type 'Bananas are berries; strawberries are not.' now.\n"
+  },
+  {
+    "img_filename": "applications.png",
+    "start_bbox": [
+      601,
+      364,
+      605,
+      371
+    ],
+    "end_bbox": [
+      663,
+      364,
+      673,
+      371
+    ],
+    "instruction": "Select the word 'server'.",
+    "action": "drag",
+    "thought": "The request is to select the word 'server'. To select it, I\u2019ll click before the 's' in 'server' and drag across to the end of the word.\n"
+  },
+  {
+    "img_filename": "careers_font.png",
+    "content": "Bookman",
+    "instruction": "Apply Bookman as the typeface for the chosen text.",
+    "action": "type",
+    "thought": "The user wants Bookman applied as the font. The font box is already active, so I\u2019ll type 'Bookman' to apply it.\n"
+  },
+  {
+    "img_filename": "careers_selection_2.png",
+    "content": "The speed of sound is 343 m/s.",
+    "instruction": "Replace the selected phrase with 'The speed of sound is 343 m/s.'.",
+    "action": "type",
+    "thought": "The request is to replace the selection with a new sentence. Since the line is already prepared, I\u2019ll type 'The speed of sound is 343 m/s.' over it.\n"
+  },
+  {
+    "img_filename": "careers.png",
+    "start_bbox": [
+      297,
+      384,
+      302,
+      396
+    ],
+    "end_bbox": [
+      367,
+      384,
+      377,
+      396
+    ],
+    "instruction": "Select the underlined text.",
+    "action": "drag",
+    "thought": "The request is to select the underlined text. I\u2019ll accomplish this by clicking at the beginning of the underlined portion and dragging across to its end.\n"
+  },
+  {
+    "img_filename": "durand_font.png",
+    "content": "Courier New",
+    "instruction": "Change the selected text font to Courier New.",
+    "action": "type",
+    "thought": "The instruction is to change the font to Courier New. The font input is selected, so the only step is typing 'Courier New' and applying it.\n"
+  },
+  {
+    "img_filename": "durand_selection_1.png",
+    "content": "Water covers about 71 percent of Earth.",
+    "instruction": "Insert 'Water covers about 71 percent of Earth.' in place of the selection.",
+    "action": "type",
+    "thought": "The request is to replace the selection with a new sentence. As the text is already highlighted, I\u2019ll directly type 'Water covers about 71 percent of Earth.' into it.\n"
+  },
+  {
+    "img_filename": "durand.png",
+    "start_bbox": [
+      317,
+      540,
+      325,
+      548
+    ],
+    "end_bbox": [
+      424,
+      553,
+      434,
+      561
+    ],
+    "instruction": "Select the last bullet in this slide.",
+    "action": "drag",
+    "thought": "The request is to select the last bullet in this slide. To achieve this, I\u2019ll click before the last bullet and drag to the end of its line to select it fully.\n"
+  },
+  {
+    "img_filename": "glases_font.png",
+    "content": "Comic Sans MS",
+    "instruction": "Assign Comic Sans MS font to the selected content.",
+    "action": "type",
+    "thought": "The user wants Comic Sans MS applied as the font. The field is active, so I\u2019ll type 'Comic Sans MS' to update the font.\n"
+  },
+  {
+    "img_filename": "glases_selection_2.png",
+    "content": "The human brain has 86 billion neurons.",
+    "instruction": "Change the highlighted portion into 'The human brain has 86 billion neurons.'.",
+    "action": "type",
+    "thought": "The request is to replace the selection with a new sentence. Since preparation is done, I\u2019ll now type 'The human brain has 86 billion neurons.' in place of the selection.\n"
+  },
+  {
+    "img_filename": "glases.png",
+    "start_bbox": [
+      494,
+      325,
+      504,
+      338
+    ],
+    "end_bbox": [
+      682,
+      325,
+      692,
+      338
+    ],
+    "instruction": "Select the title.",
+    "action": "drag",
+    "thought": "The request is to select the title. I\u2019ll click at the start of the title text and drag through to the end to make the full selection.\n"
+  },
+  {
+    "img_filename": "obesity_font.png",
+    "content": "Baskerville",
+    "instruction": "Convert the selected text into Baskerville.",
+    "action": "type",
+    "thought": "The instruction is to change the font to Baskerville. The selection is ready, so my next step is to type 'Baskerville' into the font box.\n"
+  },
+  {
+    "img_filename": "obesity_selection_1.png",
+    "content": "Antarctica is the driest continent on Earth.",
+    "instruction": "Update the chosen words to 'Antarctica is the driest continent on Earth.'.",
+    "action": "type",
+    "thought": "The request is to replace the selection with a new sentence. The highlighted text is waiting, so I\u2019ll type 'Antarctica is the driest continent on Earth.' now.\n"
+  },
+  {
+    "img_filename": "obesity.png",
+    "start_bbox": [
+      362,
+      404,
+      367,
+      413
+    ],
+    "end_bbox": [
+      634,
+      514,
+      644,
+      527
+    ],
+    "instruction": "Select the bullet.",
+    "action": "drag",
+    "thought": "The request is to select the bullet. To do that, I\u2019ll place the cursor before the bullet text and drag to the end of it.\n"
+  },
+  {
+    "img_filename": "social_font.png",
+    "content": "Segoe UI",
+    "instruction": "Apply Segoe UI formatting to the chosen text.",
+    "action": "type",
+    "thought": "The user wants Segoe UI applied as the font. The input box is ready, so I\u2019ll just type 'Segoe UI' to set it.\n"
+  },
+  {
+    "img_filename": "social_selection_1.png",
+    "content": "The heart beats about 100,000 times daily.",
+    "instruction": "Set the chosen text content to 'The heart beats about 100,000 times daily.'.",
+    "action": "type",
+    "thought": "The request is to replace the selection with a new sentence. Since the text is selected, the final step is typing 'The heart beats about 100,000 times daily.' into it.\n"
+  },
+  {
+    "img_filename": "social.png",
+    "start_bbox": [
+      258,
+      356,
+      264,
+      364
+    ],
+    "end_bbox": [
+      320,
+      448,
+      330,
+      456
+    ],
+    "instruction": "Select the second bullet.",
+    "action": "drag",
+    "thought": "The request is to select the second bullet. I\u2019ll complete this by clicking at the start of the second bullet and dragging across until its end.\n"
+  },
+  {
+    "img_filename": "worms_font.png",
+    "content": "Optima",
+    "instruction": "Replace the active font with Optima.",
+    "action": "type",
+    "thought": "The user wants Optima set as the font. The ribbon font field is already active, so I\u2019ll type 'Optima' to complete the change.\n"
+  },
+  {
+    "img_filename": "worms_selection_2.png",
+    "content": "The Amazon is Earth's largest rainforest.",
+    "instruction": "Modify the chosen content so it shows 'The Amazon is Earth's largest rainforest.'.",
+    "action": "type",
+    "thought": "The request is to replace the selection with a new sentence. Preparation is done, so I\u2019ll type 'The Amazon is Earth's largest rainforest.' directly over the selection."
+  },
+  {
+    "img_filename": "worms.png",
+    "start_bbox": [
+      456,
+      489,
+      461,
+      537
+    ],
+    "end_bbox": [
+      702,
+      489,
+      712,
+      537
+    ],
+    "instruction": "Select the first paragraph.",
+    "action": "drag",
+    "thought": "The request is to select the first paragraph. To select the paragraph, I\u2019ll click at its beginning and drag the mouse to the end of the text."
+  }
+]

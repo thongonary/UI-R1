@@ -1,0 +1,222 @@
+[
+  {
+    "img_filename": "sealevel_selection_2.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Apply bold style to the text that\u2019s selected.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_2.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Turn the chosen text into italic.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_3.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Change the selected characters to underlined.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_2.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Switch the highlighted text to strikethrough.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_2.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Place the selection flush left.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_3.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Apply center alignment to the chosen text.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_3.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Right align the highlighted content.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_3.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Align the highlighted content with both margins.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_1.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Apply bullet styling to the highlighted text.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_2.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Update the highlighted section to a reduced font size.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_3.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Change the current selection to bold.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_5.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Make the active selection italic.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_3.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Make the current selection underlined.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_2.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Add strikethrough style to the selection.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_2.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Apply a left edge alignment to the selection.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_3.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Format the selection as centered.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_2.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Apply a right align style to the selection.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_3.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Make the current selection fully aligned.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_3.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Change the current selection into bullets.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_2.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Change the current selection to a reduced size.",
+    "action": "click"
+  }
+]

@@ -50,15 +50,15 @@ done
 python ../ui_r1/src/open_r1/grpo_json_action_coord-dast.py \
     --output_dir "${SAVE_PATH}" \
     --model_name_or_path "${CKPT_PATH}" \
-    --data_file_paths ../../data/ppt-font-grounding/train_ground_click_only.json \
-    --image_folders ../../data/ppt-font-grounding/train_imgs \
+    --data_file_paths ../../dataset/ppt-font-grounding/train_ground_click_only.json \
+    --image_folders ../../dataset/ppt-font-grounding/train_imgs \
     --dataset_name "${DATA_PATH}" \
     --deepspeed ../ui_r1/local_scripts/zero3.json \
     --max_prompt_length 1024 \
     --per_device_train_batch_size 4 \
     --gradient_accumulation_steps 2 \
     --logging_steps 1 \
-    --bf16 \
+    --bf16 True \
     --report_to tensorboard \
     --max_completion_length 512 \
     --gradient_checkpointing true \

@@ -1,0 +1,280 @@
+[
+  {
+    "img_filename": "sealevel_selection_2.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Change the formatting of the highlighted section to bold.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_2.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Set the highlighted content to italic.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_3.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Underline the chosen text.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_2.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Switch the highlighted text to strikethrough.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_2.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Place the selection flush left.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_3.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Apply center alignment to the chosen text.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_3.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Move the current selection to the right margin.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_3.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Change the highlighted words to justified.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_1.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Format the highlighted section with bullets.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_selection_2.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Update the highlighted section to a reduced font size.",
+    "action": "click"
+  },
+  {
+    "img_filename": "sealevel_font.png",
+    "content": "Courier New",
+    "instruction": "Change the selected text font to Courier New.",
+    "action": "type"
+  },
+  {
+    "img_filename": "sealevel_selection_1.png",
+    "content": "Honey never spoils under normal conditions.",
+    "instruction": "Update the current selection so it reads 'Honey never spoils under normal conditions.'.",
+    "action": "type"
+  },
+  {
+    "img_filename": "sealevel.png",
+    "start_bbox": [
+      432,
+      342,
+      437,
+      352
+    ],
+    "end_bbox": [
+      753,
+      342,
+      758,
+      352
+    ],
+    "instruction": "Select the underlined text above the image.",
+    "action": "drag"
+  },
+  {
+    "img_filename": "precolonial_selection_3.png",
+    "bbox": [
+      229,
+      193,
+      241,
+      203
+    ],
+    "instruction": "Change the current selection to bold.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_5.png",
+    "bbox": [
+      246,
+      193,
+      264,
+      203
+    ],
+    "instruction": "Make the active selection italic.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_3.png",
+    "bbox": [
+      269,
+      193,
+      284,
+      203
+    ],
+    "instruction": "Apply an underline effect to the highlighted words.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_2.png",
+    "bbox": [
+      290,
+      193,
+      306,
+      203
+    ],
+    "instruction": "Make the current selection struck through.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_2.png",
+    "bbox": [
+      402,
+      200,
+      417,
+      213
+    ],
+    "instruction": "Apply a left align style to the selection.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_3.png",
+    "bbox": [
+      423,
+      200,
+      438,
+      213
+    ],
+    "instruction": "Format the selection as centered.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_2.png",
+    "bbox": [
+      444,
+      200,
+      462,
+      213
+    ],
+    "instruction": "Update the selection to use right alignment.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_3.png",
+    "bbox": [
+      462,
+      200,
+      481,
+      213
+    ],
+    "instruction": "Make the active selection justified.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_3.png",
+    "bbox": [
+      402,
+      181,
+      417,
+      192
+    ],
+    "instruction": "Change the current selection into bullets.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_selection_2.png",
+    "bbox": [
+      348,
+      211,
+      363,
+      220
+    ],
+    "instruction": "Change the current selection to a reduced size.",
+    "action": "click"
+  },
+  {
+    "img_filename": "precolonial_font.png",
+    "content": "Calibri",
+    "instruction": "Make the highlighted section use Calibri.",
+    "action": "type"
+  },
+  {
+    "img_filename": "precolonial_selection_5.png",
+    "content": "Sharks existed before trees on Earth.",
+    "instruction": "Apply 'Sharks existed before trees on Earth.' to the chosen content.",
+    "action": "type"
+  },
+  {
+    "img_filename": "precolonial.png",
+    "start_bbox": [
+      375,
+      369,
+      379,
+      381
+    ],
+    "end_bbox": [
+      421,
+      395,
+      431,
+      407
+    ],
+    "instruction": "Select the first bullet.",
+    "action": "drag"
+  }
+]
