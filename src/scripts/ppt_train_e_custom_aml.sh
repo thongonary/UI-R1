@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Install required packages
-pip install Levenshtein
+# Install required packages only on local rank 0 of each node to avoid race conditions
+# LOCAL_RANK is set by AML distributed training environment (0 on each node)
+# This ensures one process per node installs packages, avoiding conflicts within each node
+if [[ "${LOCAL_RANK:-0}" == "0" ]]; then
+    echo "[INFO] Node ${NODE_RANK:-0}, Local Rank 0: Installing required packages..."
+    pip install Levenshtein
+    pip install trl
+    echo "[INFO] Node ${NODE_RANK:-0}, Local Rank 0: Package installation complete"
+else
+    echo "[INFO] Node ${NODE_RANK:-0}, Local Rank ${LOCAL_RANK}: Waiting for local rank 0 to finish package installation..."
+    # Wait a bit to ensure local rank 0 completes installation
+    sleep 30
+fi
 
 # AML-aware variant of ppt_train_e_custom.sh
 # Key differences:
