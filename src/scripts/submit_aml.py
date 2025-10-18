@@ -49,7 +49,18 @@ job = command(
     environment_variables={
         # Provided so script can detect externally set SAVE_PATH and not overwrite it.
         "SAVE_PATH": "${{outputs.checkpoints}}",
-        "DEBUG_MODE": "true"
+        "DEBUG_MODE": "true",
+        # NCCL/DeepSpeed diagnostics & stability
+        "NCCL_DEBUG": "INFO",  # verbose NCCL logs
+        "NCCL_ASYNC_ERROR_HANDLING": "1",  # allow async error reporting
+        "NCCL_SOCKET_IFNAME": "eth0",  # explicit network interface
+        "NCCL_COLLNET_ENABLE": "0",  # disable collnet for simpler topology
+        "NCCL_NET_GDR_LEVEL": "2",  # enable GPU Direct RDMA optimizations if available
+        "TORCH_NCCL_AVOID_RECORD_STREAMS": "1",  # mitigate certain hang scenarios
+        "NCCL_IB_DISABLE": "0",  # ensure IB enabled (should already be, explicit for clarity)
+        "NCCL_TOPO_FILE": "",  # prevent attempts to read missing topology file
+        # Shorten default NCCL timeout for quicker failure (optional):
+        "NCCL_BLOCKING_WAIT": "1"
     }
 )
 

@@ -73,7 +73,7 @@ python ../ui_r1/src/open_r1/grpo_json_action_coord-dast.py \
     --data_file_paths ../../dataset/ppt-font-grounding/train_ground_click_only.json \
     --image_folders ../../dataset/ppt-font-grounding/train_imgs \
     --dataset_name "${DATA_PATH}" \
-    --deepspeed ../ui_r1/local_scripts/zero3.json \
+    --deepspeed ../ui_r1/local_scripts/zero2.json \
     --local_rank ${LOCAL_RANK:-0} \
     --max_prompt_length 1024 \
     --per_device_train_batch_size 4 \
