@@ -12,7 +12,7 @@ RESOURCE_GROUP = "oxoml"
 WORKSPACE_NAME = "oaiscience-scus"
 
 # Job configuration
-COMPUTE_NAME = "gpu-cluster"
+COMPUTE_NAME = "gpu-cluster-network"
 ENVIRONMENT_NAME = "grpo-finetuning-env:1.0.17"  # or use existing environment
 EXPERIMENT_NAME = "ppt-font-grounding-training-grpo"
 

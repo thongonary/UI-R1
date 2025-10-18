@@ -47,10 +47,28 @@ echo "[INFO] DATE: $(date -u)"
 echo "[INFO] HOSTNAME: $(hostname)"
 echo "[INFO] PWD: $(pwd)"
 echo "[INFO] SAVE_PATH: ${SAVE_PATH}" 
+
+# Print CUDA device information
+echo "[INFO] CUDA_VISIBLE_DEVICES: ${CUDA_VISIBLE_DEVICES:-not set}"
+if command -v nvidia-smi &> /dev/null; then
+    echo "[INFO] Available GPUs:"
+    nvidia-smi --list-gpus
+    NUM_GPUS=$(nvidia-smi --list-gpus | wc -l)
+    echo "[INFO] Number of GPUs detected: ${NUM_GPUS}"
+else
+    echo "[WARN] nvidia-smi not available"
+fi
+
 # World/distributed env vars if present (AML sets these)
 for v in RANK LOCAL_RANK NODE_RANK WORLD_SIZE MASTER_ADDR MASTER_PORT AZ_BATCHAI_JOB_MASTER_NODE_IP; do
   if [[ -n "${!v-}" ]]; then echo "[DIST] $v=${!v}"; fi
 done
+
+# Ensure CUDA device is set correctly for DeepSpeed
+# Each process should only see its assigned GPU (based on LOCAL_RANK)
+# This prevents DeepSpeed from trying to access invalid device ordinals
+export CUDA_VISIBLE_DEVICES=${LOCAL_RANK:-0}
+echo "[INFO] Set CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES} for LOCAL_RANK=${LOCAL_RANK:-0}"
 
 # NOTE: No manual torchrun/torch.distributed invocation here; AML launches multiple processes.
 python ../ui_r1/src/open_r1/grpo_json_action_coord-dast.py \
