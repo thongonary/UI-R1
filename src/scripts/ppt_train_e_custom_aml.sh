@@ -8,11 +8,17 @@ if [[ "${LOCAL_RANK:-0}" == "0" ]]; then
     echo "[INFO] Node ${NODE_RANK:-0}, Local Rank 0: Installing required packages..."
     pip install Levenshtein
     pip install trl
+    
+    # Reinstall flash-attn to match current PyTorch version
+    echo "[INFO] Node ${NODE_RANK:-0}, Local Rank 0: Reinstalling flash-attn..."
+    pip uninstall -y flash-attn
+    pip install flash-attn --no-build-isolation
+    
     echo "[INFO] Node ${NODE_RANK:-0}, Local Rank 0: Package installation complete"
 else
     echo "[INFO] Node ${NODE_RANK:-0}, Local Rank ${LOCAL_RANK}: Waiting for local rank 0 to finish package installation..."
-    # Wait a bit to ensure local rank 0 completes installation
-    sleep 30
+    # Wait a bit to ensure local rank 0 completes installation (increased for flash-attn compilation)
+    sleep 60
 fi
 
 # AML-aware variant of ppt_train_e_custom.sh
@@ -62,7 +68,7 @@ python ../ui_r1/src/open_r1/grpo_json_action_coord-dast.py \
     --report_to tensorboard \
     --max_completion_length 512 \
     --gradient_checkpointing true \
-    --attn_implementation flash_attention_2 \
+    --attn_implementation eager \
     --max_pixels 12845056 \
     --num_train_epochs 1 \
     --run_name GRPO_example \
