@@ -27,21 +27,29 @@ ml_client = MLClient(
 # Create job
 job = command(
     code="../..",  # Upload from repository root to include data/
-    command="cd src/scripts; bash ppt_train_e_custom.sh",
+    # Use AML-aware script variant that does NOT invoke torch.distributed.run manually.
+    command="cd src/scripts; bash ppt_train_e_custom_aml.sh",
     environment=ENVIRONMENT_NAME,
     compute=COMPUTE_NAME,
     experiment_name=EXPERIMENT_NAME,
     display_name="ppt-grpo-training",
+    # Number of nodes
     instance_count=2,
+    # Let AML PyTorch launcher spawn processes (no manual torchrun needed in script)
     distribution={
         "type": "PyTorch",
+        # Set to number of GPUs per node you want to utilize.
+        # Ensure this matches actual GPU count or desired subset.
         "process_count_per_instance": 2
     },
     outputs={
+        # Mounted output; SAVE_PATH inside script will be this path (overrides default)
         "checkpoints": Output(type="uri_folder", mode="rw_mount")
     },
     environment_variables={
-        "SAVE_PATH": "${{outputs.checkpoints}}"
+        # Provided so script can detect externally set SAVE_PATH and not overwrite it.
+        "SAVE_PATH": "${{outputs.checkpoints}}",
+        "DEBUG_MODE": "true"
     }
 )
 

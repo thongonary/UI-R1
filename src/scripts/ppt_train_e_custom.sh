@@ -30,7 +30,7 @@ CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.run --nproc_per_node=4 \
     --gradient_checkpointing true \
     --attn_implementation flash_attention_2 \
     --max_pixels 12845056 \
-    --num_train_epochs 16 \
+    --num_train_epochs 1 \
     --run_name GRPO_example \
     --save_strategy epoch \
     --save_only_model true \
