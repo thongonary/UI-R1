@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Install required packages
+pip install Levenshtein
+
 # AML-aware variant of ppt_train_e_custom.sh
 # Key differences:
 #  - Removes manual torch.distributed.run launcher; AML PyTorch distribution handles process spawning.
