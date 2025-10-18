@@ -470,10 +470,20 @@ class Qwen2VLGRPOTrainer(Trainer):
         # self.model_accepts_loss_kwargs to False to enable scaling.
         self.model_accepts_loss_kwargs = False
 
+        # Reference model DeepSpeed wrapping can trigger NCCL broadcast issues on multi-node (seen in Azure logs
+        # failing during dist.broadcast inside _broadcast_model). Allow disabling via env and add a safe fallback.
         if self.ref_model is not None:
-            if self.is_deepspeed_enabled:
-                self.ref_model = prepare_deepspeed(self.ref_model, self.accelerator)
+            disable_ref_ds = os.environ.get("REF_MODEL_DEEPSPEED_DISABLE", "0") == "1"
+            if self.is_deepspeed_enabled and not disable_ref_ds:
+                try:
+                    self.ref_model = prepare_deepspeed(self.ref_model, self.accelerator)
+                except Exception as e:
+                    if self.accelerator.is_local_main_process:
+                        print(f"[WARN] DeepSpeed init for ref_model failed: {e}. Falling back to non-DeepSpeed reference model.")
+                    # Fallback: prepare the model for evaluation without DeepSpeed engine
+                    self.ref_model = self.accelerator.prepare_model(self.ref_model, evaluation_mode=True)
             else:
+                # Either DeepSpeed disabled globally or explicitly skipped for ref model
                 self.ref_model = self.accelerator.prepare_model(self.ref_model, evaluation_mode=True)
 
         for i, reward_func in enumerate(self.reward_funcs):
