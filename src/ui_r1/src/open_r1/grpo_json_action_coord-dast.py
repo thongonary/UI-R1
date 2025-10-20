@@ -474,11 +474,59 @@ def main(script_args, training_args, model_args):
         min_pixels=script_args.min_pixels,
     )
 
+    # ------------------------------------------------------------------
+    # Checkpoint logging callback: logs every save event (epoch or strategy)
+    # ------------------------------------------------------------------
+    try:
+        from transformers import TrainerCallback
+
+        class CheckpointLoggingCallback(TrainerCallback):
+            def on_save(self, args, state, control, **kwargs):  # called after a checkpoint save
+                import os, time
+                # HF Trainer typically saves to output_dir/checkpoint-<global_step>
+                ckpt_dir = os.path.join(args.output_dir, f"checkpoint-{state.global_step}")
+                if not os.path.isdir(ckpt_dir):  # fall back if naming differs
+                    ckpt_dir = args.output_dir
+                msg = f"[INFO] Checkpoint saved @ step {state.global_step} -> {ckpt_dir}"
+                print(msg)
+                log_path = os.getenv("LOG_PATH")
+                if log_path:
+                    try:
+                        with open(log_path, "a") as f:
+                            f.write(msg + "\n")
+                            try:
+                                for name in sorted(os.listdir(ckpt_dir)):
+                                    f.write(f"  - {name}\n")
+                            except Exception as e:  # directory listing may fail if path not yet synced
+                                f.write(f"  (listing failed: {e})\n")
+                    except Exception as e:
+                        print(f"[WARN] Failed writing checkpoint log file: {e}")
+
+        trainer.add_callback(CheckpointLoggingCallback())
+    except Exception as e:
+        print(f"[WARN] Could not attach checkpoint logging callback: {e}")
+
     # Train and push the model to the Hub
     trainer.train()
 
     # Save and push to hub
     trainer.save_model(training_args.output_dir)
+    # Final save logging (explicit directory content snapshot)
+    try:
+        final_dir = training_args.output_dir
+        final_msg = f"[INFO] Final model save completed -> {final_dir}"
+        print(final_msg)
+        log_path = os.getenv("LOG_PATH")
+        if log_path:
+            with open(log_path, "a") as f:
+                f.write(final_msg + "\n")
+                try:
+                    for name in sorted(os.listdir(final_dir)):
+                        f.write(f"  * {name}\n")
+                except Exception as e:
+                    f.write(f"  (final listing failed: {e})\n")
+    except Exception as e:
+        print(f"[WARN] Final checkpoint logging failed: {e}")
     if training_args.push_to_hub:
         trainer.push_to_hub(dataset_name=script_args.dataset_name)
 

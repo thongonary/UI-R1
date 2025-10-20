@@ -343,6 +343,35 @@ class Qwen2VLGRPOTrainer(Trainer):
             # to revert to the initial model.
             self.ref_model = None
 
+        # Debug instrumentation for reference model creation
+        if os.getenv("DEBUG_MODE") == "true":
+            try:
+                zero3_flag = is_deepspeed_zero3_enabled()
+            except Exception:
+                zero3_flag = "error"
+            try:
+                model_params = sum(p.numel() for p in model.parameters())
+            except Exception as e:
+                model_params = f"error: {e}" 
+            if self.ref_model is not None:
+                try:
+                    ref_params = sum(p.numel() for p in self.ref_model.parameters())
+                except Exception as e:
+                    ref_params = f"error: {e}"
+            else:
+                ref_params = None
+            try:
+                import transformers
+                tf_version = transformers.__version__
+            except Exception:
+                tf_version = "unknown"
+            print(
+                f"[DEBUG INIT] ref_model_created={self.ref_model is not None} | "
+                f"model_id={model_id} | zero3={zero3_flag} | peft_config={peft_config is not None} | "
+                f"model_cls={model.__class__.__name__} | beta={args.beta} | transformers={tf_version} | "
+                f"model_params={model_params} | ref_params={ref_params}"
+            )
+
         # Processing class
         if processing_class is None:
             if "Qwen2-VL" in model_id or "Qwen2.5-VL" in model_id or "Aria" in model_id:
@@ -734,7 +763,17 @@ class Qwen2VLGRPOTrainer(Trainer):
                     ref_per_token_logps = self._get_per_token_logps(
                         model, prompt_completion_ids, attention_mask, pixel_values, image_grid_thw
                     )
-        ref_per_token_logps = ref_per_token_logps[:, prompt_length - 1:]
+        # Only slice reference log probs when they exist (beta>0). For beta==0 runs, ref_per_token_logps is None.
+        if ref_per_token_logps is not None:
+            ref_per_token_logps = ref_per_token_logps[:, prompt_length - 1:]
+            if os.getenv("DEBUG_MODE") == "true":
+                try:
+                    print(f"[DEBUG KL] beta={self.beta} ref_logps_shape={tuple(ref_per_token_logps.shape)} prompt_len={prompt_length}")
+                except Exception:
+                    print("[DEBUG KL] Failed to read ref_per_token_logps shape")
+        else:
+            if os.getenv("DEBUG_MODE") == "true":
+                print(f"[DEBUG KL] beta={self.beta} no ref_per_token_logps (None) prompt_len={prompt_length}")
 
         # Decode the generated completions
         completions = self.processing_class.batch_decode(completion_ids, skip_special_tokens=True)
@@ -957,16 +996,23 @@ class Qwen2VLGRPOTrainer(Trainer):
 
         model_card.save(os.path.join(self.args.output_dir, "README.md"))
 
-    def _get_train_sampler(self) -> Sampler:
-        """Returns a sampler that ensures proper data sampling for GRPO training."""
+    def _get_train_sampler(self, train_dataset=None) -> Sampler:
+        """Returns a sampler that ensures proper data sampling for GRPO training.
+
+        HF Transformers >= 4.43 passes the dataset as an argument (sampler_fn(dataset)).
+        Older versions expected no argument. We accept an optional dataset for
+        forward compatibility while still supporting older behavior.
+        """
+        dataset = train_dataset if train_dataset is not None else self.train_dataset
+
         effective_batch_size = (
             self.args.per_device_train_batch_size
             * self.accelerator.num_processes
             * self.args.gradient_accumulation_steps
         )
-        
+
         return RepeatRandomSampler(
-            data_source=self.train_dataset,
+            data_source=dataset,
             mini_repeat_count=self.num_generations,
             batch_size=effective_batch_size // self.num_generations,
             repeat_count=self.num_iterations,

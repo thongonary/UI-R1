@@ -459,8 +459,13 @@ class Qwen2VLGRPOVLLMTrainer(Trainer):
             self._signature_columns = ["prompt"]
 
     # We need a custom sampler that samples the same prompt multiple times
-    def _get_train_sampler(self):
-        return RepeatRandomSampler(self.train_dataset, self.num_generations)
+    def _get_train_sampler(self, train_dataset=None):
+        """Custom train sampler for vLLM GRPO trainer.
+
+        Newer HF Trainer versions pass the dataset argument. Support both.
+        """
+        dataset = train_dataset if train_dataset is not None else self.train_dataset
+        return RepeatRandomSampler(dataset, self.num_generations)
 
     # Get the per-token log probabilities for the completions for the model and the reference model
     def _get_per_token_logps(

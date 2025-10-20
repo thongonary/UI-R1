@@ -31,7 +31,7 @@ fi
 
 export DEBUG_MODE="true"
 
-export DATA_PATH=../../data/ppt-font-grounding
+export DATA_PATH=../../dataset/ppt-font-grounding
 # Base model checkpoint (HF Hub or local path)
 export CKPT_PATH=${CKPT_PATH:-Qwen/Qwen2.5-VL-3B-Instruct}
 
