@@ -35,8 +35,8 @@ export DATA_PATH=../../dataset/ppt-font-grounding
 # Base model checkpoint (HF Hub or local path)
 export CKPT_PATH=${CKPT_PATH:-Qwen/Qwen2.5-VL-3B-Instruct}
 
-# Only set SAVE_PATH default if not already provided by environment (AML passes it in env vars)
-: "${SAVE_PATH:=/home/data/ckpt/Qwen2.5-VL-PPT-font-ground-dast-16ep-clipped-higher}" 
+# Resolve SAVE_PATH directly from AzureML injected output env var (simplified)
+SAVE_PATH="${AZUREML_OUTPUT_CHECKPOINTS:-/home/data/ckpt/Qwen2.5-VL-PPT-font-ground-dast-fallback}"
 
 export LOG_PATH="debug_log.txt"
 export Train_PATH="train.log"
@@ -46,7 +46,12 @@ echo "[INFO] STARTING TRAINING"
 echo "[INFO] DATE: $(date -u)"
 echo "[INFO] HOSTNAME: $(hostname)"
 echo "[INFO] PWD: $(pwd)"
-echo "[INFO] SAVE_PATH: ${SAVE_PATH}" 
+echo "[INFO] SAVE_PATH resolved: ${SAVE_PATH}" 
+mkdir -p "${SAVE_PATH}" || true
+if [[ -d "${SAVE_PATH}" ]]; then
+  echo "[DIAG] SAVE_PATH exists & $( [[ -w \"$SAVE_PATH\" ]] && echo writable || echo NOT-writable )"
+  ls -al "${SAVE_PATH}" || true
+fi
 
 # Print CUDA device information
 echo "[INFO] CUDA_VISIBLE_DEVICES: ${CUDA_VISIBLE_DEVICES:-not set}"
@@ -68,7 +73,7 @@ done
 # NOTE: No manual torchrun/torch.distributed invocation here; AML launches multiple processes.
 # Pass --local_rank explicitly to help DeepSpeed initialization
 python ../ui_r1/src/open_r1/grpo_json_action_coord-dast.py \
-    --output_dir "${SAVE_PATH}" \
+    --output_dir "${AZUREML_OUTPUT_CHECKPOINTS:-${SAVE_PATH}}" \
     --model_name_or_path "${CKPT_PATH}" \
     --data_file_paths ../../dataset/ppt-font-grounding/train_ground_click_only.json \
     --image_folders ../../dataset/ppt-font-grounding/train_imgs \

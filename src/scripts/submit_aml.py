@@ -47,8 +47,6 @@ job = command(
         "checkpoints": Output(type="uri_folder", mode="rw_mount")
     },
     environment_variables={
-        # Provided so script can detect externally set SAVE_PATH and not overwrite it.
-        "SAVE_PATH": "${{outputs.checkpoints}}",
         "DEBUG_MODE": "true",
         # NCCL/DeepSpeed diagnostics & stability (updated to modern TORCH_NCCL_* names)
         "NCCL_DEBUG": "INFO",
