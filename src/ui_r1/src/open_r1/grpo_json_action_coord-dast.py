@@ -335,6 +335,73 @@ def main(script_args, training_args, model_args):
     # Get reward functions
     script_args.reward_funcs = ['accuracy_action','accuracy_arg','format']
     reward_funcs = [reward_funcs_registry[func] for func in script_args.reward_funcs]
+    # ------------------------------------------------------------------
+    # Minimal MLflow integration: metrics only, no params
+    # Rationale: Avoid 500-char param limit issues by not logging params at all.
+    # We remove 'mlflow' from report_to so HF's MLflowCallback isn't registered.
+    # Then we attach a lightweight callback that logs metrics on rank 0 only.
+    # Toggle via env MINIMAL_MLFLOW=1 (default 1). Set MINIMAL_MLFLOW=0 to revert
+    # to native behavior (user then responsible for param size limits).
+    # ------------------------------------------------------------------
+    USE_MINIMAL_MLFLOW = os.environ.get("MINIMAL_MLFLOW", "1") == "1"
+    if USE_MINIMAL_MLFLOW:
+        if training_args.report_to and 'mlflow' in training_args.report_to:
+            training_args.report_to = [x for x in training_args.report_to if x != 'mlflow']
+            if os.environ.get('RANK', '0') == '0':
+                print('[MLFLOW-MIN] Removed mlflow from report_to for minimal metrics-only logging.')
+        # Prepare minimal callback
+        try:
+            import mlflow
+            from transformers import TrainerCallback
+
+            class MinimalMlflowCallback(TrainerCallback):
+                def __init__(self):
+                    self._active = False
+
+                def on_train_begin(self, args, state, control, **kwargs):
+                    if os.environ.get('RANK', '0') != '0':
+                        return control
+                    try:
+                        mlflow.start_run()
+                        self._active = True
+                        print('[MLFLOW-MIN] Started MLflow run (metrics only).')
+                    except Exception as e:
+                        print(f'[MLFLOW-MIN][WARN] Could not start MLflow run: {e}')
+                    return control
+
+                def on_log(self, args, state, control, logs=None, **kwargs):
+                    if not logs or os.environ.get('RANK', '0') != '0' or not self._active:
+                        return control
+                    # Filter out very verbose or irrelevant keys if desired
+                    skip_prefixes = ('grad_', 'weight', 'norm_')
+                    for k, v in logs.items():
+                        if any(k.startswith(p) for p in skip_prefixes):
+                            continue
+                        # Log scalars only
+                        if isinstance(v, (int, float)):
+                            try:
+                                mlflow.log_metric(k, float(v), step=state.global_step)
+                            except Exception as e:
+                                print(f'[MLFLOW-MIN][WARN] Failed logging metric {k}: {e}')
+                    return control
+
+                def on_train_end(self, args, state, control, **kwargs):
+                    if self._active and os.environ.get('RANK', '0') == '0':
+                        try:
+                            mlflow.end_run()
+                            print('[MLFLOW-MIN] Ended MLflow run.')
+                        except Exception as e:
+                            print(f'[MLFLOW-MIN][WARN] Failed to end MLflow run: {e}')
+                    return control
+
+            # Defer adding callback until after trainer instantiation (below)
+            minimal_mlflow_callback_cls = MinimalMlflowCallback
+        except Exception as e:
+            if os.environ.get('RANK', '0') == '0':
+                print(f'[MLFLOW-MIN][WARN] Minimal MLflow disabled (import failure): {e}')
+            minimal_mlflow_callback_cls = None
+    else:
+        minimal_mlflow_callback_cls = None
 
     # Load the dataset from huggingface
     # dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
@@ -473,6 +540,16 @@ def main(script_args, training_args, model_args):
         max_pixels=script_args.max_pixels,
         min_pixels=script_args.min_pixels,
     )
+
+    # Attach minimal MLflow callback if enabled
+    if 'minimal_mlflow_callback_cls' in locals() and minimal_mlflow_callback_cls is not None:
+        try:
+            trainer.add_callback(minimal_mlflow_callback_cls())
+            if os.environ.get('RANK', '0') == '0':
+                print('[MLFLOW-MIN] Minimal Mlflow callback attached (metrics only).')
+        except Exception as e:
+            if os.environ.get('RANK', '0') == '0':
+                print(f'[MLFLOW-MIN][WARN] Failed attaching minimal callback: {e}')
 
     # ------------------------------------------------------------------
     # Checkpoint logging callback: logs every save event (epoch or strategy)

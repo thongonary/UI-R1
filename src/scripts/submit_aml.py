@@ -27,8 +27,9 @@ ml_client = MLClient(
 # Create job
 job = command(
     code="../..",  # Upload from repository root to include data/
-    # Use AML-aware script variant that does NOT invoke torch.distributed.run manually.
-    command="cd src/scripts; bash ppt_train_e_custom_aml.sh",
+    # Inject the output mount path via placeholder expansion directly into the shell environment before running script.
+    # NOTE: ${{outputs.checkpoints}} only expands in the 'command' string, not inside environment_variables or the script file.
+    command="cd src/scripts; SAVE_PATH=${{outputs.checkpoints}} bash ppt_train_e_custom_aml.sh",
     environment=ENVIRONMENT_NAME,
     compute=COMPUTE_NAME,
     experiment_name=EXPERIMENT_NAME,

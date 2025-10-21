@@ -35,8 +35,9 @@ export DATA_PATH=../../dataset/ppt-font-grounding
 # Base model checkpoint (HF Hub or local path)
 export CKPT_PATH=${CKPT_PATH:-Qwen/Qwen2.5-VL-3B-Instruct}
 
-# Resolve SAVE_PATH directly from AzureML injected output env var (simplified)
-SAVE_PATH="${AZUREML_OUTPUT_CHECKPOINTS:-/home/data/ckpt/Qwen2.5-VL-PPT-font-ground-dast-fallback}"
+# Resolve SAVE_PATH from injected shell var (set in submit_aml command) or fallback.
+# Azure ML does NOT expand ${{outputs.*}} inside scripts; expansion must happen in job 'command'.
+SAVE_PATH="${SAVE_PATH:-/home/data/ckpt/Qwen2.5-VL-PPT-font-ground-dast-fallback}"
 
 export LOG_PATH="debug_log.txt"
 export Train_PATH="train.log"
@@ -73,7 +74,7 @@ done
 # NOTE: No manual torchrun/torch.distributed invocation here; AML launches multiple processes.
 # Pass --local_rank explicitly to help DeepSpeed initialization
 python ../ui_r1/src/open_r1/grpo_json_action_coord-dast.py \
-    --output_dir "${AZUREML_OUTPUT_CHECKPOINTS:-${SAVE_PATH}}" \
+    --output_dir "${SAVE_PATH}" \
     --model_name_or_path "${CKPT_PATH}" \
     --data_file_paths ../../dataset/ppt-font-grounding/train_ground_click_only.json \
     --image_folders ../../dataset/ppt-font-grounding/train_imgs \
